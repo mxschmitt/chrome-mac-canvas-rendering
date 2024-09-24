@@ -17,13 +17,13 @@ jobs:
     steps:
     - name: Checkout code
       uses: actions/checkout@v4
-    - name: Take screenshot with Chrome Beta
+    - name: Take screenshot with Chrome
       run: |
         npm ci
         node screenshot.mjs
     - name: Upload screenshot artifact
       uses: actions/upload-artifact@v4
       with:
-        name: screenshot-${e{ matrix.os }}
+        name: screenshot-${{ matrix.os }}
         path: screenshot.png
         if-no-files-found: error
