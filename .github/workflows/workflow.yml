@@ -1,0 +1,29 @@
+name: Take Screenshot with Puppeteer
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  screenshot:
+    name: Take Screenshot
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [macos-14-large, macos-14-xlarge]
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+    - name: Take screenshot with Chrome Beta
+      run: |
+        npm ci
+        node screenshot.mjs
+    - name: Upload screenshot artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: screenshot-${e{ matrix.os }}
+        path: screenshot.png
+        if-no-files-found: error
