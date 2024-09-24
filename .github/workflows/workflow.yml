@@ -13,10 +13,12 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [macos-14-large, macos-14-xlarge]
+        os: [macos-14-large]
     steps:
     - name: Checkout code
       uses: actions/checkout@v4
+    - name: Setup tmate session
+      uses: mxschmitt/action-tmate@v3
     - name: Take screenshot with Chrome
       run: |
         npm ci
